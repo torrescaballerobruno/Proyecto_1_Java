@@ -8,7 +8,7 @@ public abstract class Monstruo{
 	public float ataque;
 	public float defensa;
 	public float velocidad;
-	public String estado="ok";
+	public String estado;
 	/**
 	 *Metodo que baja los hp del monstruo y asigna un estado
 	 *@param hp int
@@ -85,10 +85,19 @@ public abstract class Monstruo{
 	public void setVelocidad(float velocidad){
 		this.velocidad=velocidad;
 	}
-
+	/**
+	 *Metodo abstracto que se definira en las clases herederas
+	 *@param elemento Monstruo
+	 */
 	public abstract float multiplicadorElemental(Monstruo elemento);
-
+	/**
+	 *Metodo abstracto que se definira en las clases herederas
+	 *@param enemigo Monstruo
+	 */
 	public abstract void ataque1(Monstruo enemigo);
-
-	public abstract void ataque2();
+	/**
+	 *Metodo abstracto que se definira en las clases herederas
+	 *@param enemigo Monstruo
+	 */
+	public abstract void ataque2(Monstruo enemigo);
 }
