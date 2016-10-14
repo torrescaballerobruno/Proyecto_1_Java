@@ -4,10 +4,10 @@
  */
 public class Jolteon extends Electrico{
 	private final String nombreMonstruo="Jolteon";
-	private final int hpBase=25;
-	private final int ataqueBase=20;
-	private final int defensaBase=15;
-	private final int velocidadBase=15;
+	private final int hpBase=22;
+	private final int ataqueBase=18;
+	private final int defensaBase=17;
+	private final int velocidadBase=20;
 	public final String ataqueClase="Colmillo rayo";
 	
 	/**

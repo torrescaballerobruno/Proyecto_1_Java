@@ -4,10 +4,10 @@
  */
 public class Flaaffy extends Electrico{
 	private final String nombreMonstruo="Flaaffy";
-	private final int hpBase=25;
-	private final int ataqueBase=20;
+	private final int hpBase=20;
+	private final int ataqueBase=15;
 	private final int defensaBase=15;
-	private final int velocidadBase=15;
+	private final int velocidadBase=10;
 	public final String ataqueClase="Derrivo";
 	
 	/**
