@@ -9,16 +9,18 @@ public abstract class Agua extends Monstruo{
 	*/
 	public float multiplicadorElemental(Monstruo elemento){
 		if (elemento instanceof Fuego)
-			return 2.0;
+			return 2.0f;
 		else if (elemento instanceof Agua || elemento instanceof Hierba)
-			return 0.5;
+			return 0.5f;
 		else if (elemento instanceof Electrico)
-			return 1.0;
+			return 1.0f;
+		return 0.0f; //Para que no chille el compilador.
 	}
 	/**
 	* Método que calcula e inflinge daño a un enemigo.
 	* @param enemigo Objeto de la clase "Monstruo" que representa al enemigo que se atacará.
 	*/
+	@Override
 	public void ataque1(Monstruo enemigo){
 		float damage;
 		
