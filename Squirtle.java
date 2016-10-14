@@ -1,5 +1,5 @@
 /**
- *Subclase Flaaffy que es un monstruo especifico de tipo Electrico
+ *Subclase Squirtle que es un monstruo especifico de tipo Agua
  *@author Bruno Torres
  */
 public class Squirtle extends Agua{
@@ -11,7 +11,7 @@ public class Squirtle extends Agua{
 	public final String ataqueClase="Pistola agua";
 	
 	/**
-	 *Constructor de la clase Pikachu 
+	 *Constructor de la clase Squirtle 
 	 *@param nombre String
 	 *@param nivel int
 	 */

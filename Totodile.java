@@ -11,7 +11,7 @@ public class Totodile extends Agua{
 	public final String ataqueClase="Hidrobomba";
 	
 	/**
-	 *Constructor de la clase Pikachu 
+	 *Constructor de la clase Totodile 
 	 *@param nombre String
 	 *@param nivel int
 	 */

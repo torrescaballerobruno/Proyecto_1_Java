@@ -1,5 +1,5 @@
 /**
- *Subclase Flaaffy que es un monstruo especifico de tipo Electrico
+ *Subclase Poliwag que es un monstruo especifico de tipo Agua
  *@author Bruno Torres
  */
 public class Poliwag extends Agua{
@@ -11,7 +11,7 @@ public class Poliwag extends Agua{
 	public final String ataqueClase="Hidrochorro";
 	
 	/**
-	 *Constructor de la clase Pikachu 
+	 *Constructor de la clase Poliwag
 	 *@param nombre String
 	 *@param nivel int
 	 */
