@@ -6,8 +6,8 @@ import java.util.Scanner;
 * Clase que almacena los datos de un contrincante y sus métodos.
 */
 public class Contrincante{
-	ArrayList <Monstruo> monstruo = new ArrayList<Monstruo>();
-	ArrayList <Pocima> pocima = new ArrayList<Pocima>();
+	ArrayList <Monstruo> monstruo = new ArrayList();
+	ArrayList <Pocima> pocima = new ArrayList();
 	Scanner sc = new Scanner(System.in);
 	String nombre;
 	Monstruo monstruo_actual;
@@ -16,7 +16,7 @@ public class Contrincante{
 	*Método que permite sacar un monstruo de la batalla.
 	*/
 	public void guardarMonstruo(){
-		monstruo_actual.estado = "ok";
+		monstruo_actual.estado = "En espera.";
 		System.out.println(monstruo_actual+" ya no está en la pelea. Tienes estos monstruos:");
 		listarMonstruo();
 		System.out.print("¿A quién quieres meter en la pelea? Escribe su nombre: ");

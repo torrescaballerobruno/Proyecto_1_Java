@@ -1,8 +1,10 @@
+import java.util.Random;
 /**
 * @author: Davacas
 * Clase que contiene un método abstracto de ataque y uno que calcula un multiplicador elemental.
 */
 public abstract class Electrico extends Monstruo{
+	public final String ataqueElemento="Impactrueno";
 	/**
 	* Método que calcula el daño elemental de acuerdo al enemigo que sea vaya a atacar.
 	* @param elemento Objeto de la clase "Monstruo" que representa al enemigo que se atacará.
@@ -24,10 +26,28 @@ public abstract class Electrico extends Monstruo{
 	public void ataque1(Monstruo enemigo){
 		float damage;
 		
-		if ((damage = (this.ataque - enemigo.defensa)*multiplicadorElemental(enemigo)) <= 0)
-			damage = 0;
+		if(estado.equals("ok") && !enemigo.estado.equals("Fuera de combate")){
+				Random rnd = new Random();
+			if(1 < ( (int)(rnd.nextDouble() * 5.0+1) ) ) {
+				if ((damage = (this.ataque - enemigo.defensa)*multiplicadorElemental(enemigo)) <= 0)
+					damage = 0;
 
-		enemigo.hp -= damage;
-		System.out.println("¡"+enemigo.apodo+" pierde "+damage+" puntos de vida por el ataque de "+this.apodo+"!");
+				if(!enemigo.estado.equals("Fuera de combate")){
+					enemigo.recibirDaño((int)damage);
+					System.out.println(this.apodo+" uso "+ataqueElemento+". ¡"+enemigo.apodo+" pierde "+damage+" puntos de vida!");
+				}else
+					System.out.println("El enemigo esta muerto :v");
+			}else{
+				System.out.println(this.apodo+" fallo en su ataque.");
+			}
+		}else if(estado.equals("paralizado")){
+			contParalizado++;
+			if(contParalizado==2){
+				estado="ok";
+				contParalizado=0;
+			}
+		}else if (estado.equals("Fuera de combate")){
+			System.out.println(this.apodo+" no puede continuar");
+		}
 	}
 }

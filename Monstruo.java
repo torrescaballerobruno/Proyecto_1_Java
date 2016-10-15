@@ -1,5 +1,6 @@
-/** Clase Monstruo que es la superclase de los tipos de Monstruo
- * @author: Bruno Torres
+/** 
+ * Clase Monstruo que es la superclase de los tipos de Monstruo
+ * @author  Bruno Torres
  */
 public abstract class Monstruo{
 	public int hp;
@@ -9,14 +10,14 @@ public abstract class Monstruo{
 	public float defensa;
 	public float velocidad;
 	public String estado;
+	public int contParalizado=0;
 	/**
 	 *Metodo que baja los hp del monstruo y asigna un estado
 	 *@param hp int
 	 *@param estado String
 	 */
-	public void recibirDaño(int hp,String estado){
+	public void recibirDaño(int hp){
 		this.hp -= hp;
-		this.estado = estado;
 		if(this.hp<=0)
 			this.estado="Fuera de combate";
 	}
@@ -25,6 +26,7 @@ public abstract class Monstruo{
 	 *@param hp int
 	*/
 	public void recibirHp(int hp){
+		System.out.println(this.apodo + " recibio "+hp+" puntos de Hp.");
 		this.hp+=hp;
 	}
 
@@ -33,6 +35,7 @@ public abstract class Monstruo{
 	 *@param ataque float
 	*/
 	public void recibirAtaque(float ataque){
+		System.out.println(this.apodo+" recibio "+ataque+" puntos de ataque.");
 		this.ataque+=ataque;
 	}
 
@@ -41,6 +44,7 @@ public abstract class Monstruo{
 	 *@param defensa float
 	*/
 	public void recibirDefensa(float defensa){
+		System.out.println(this.apodo + " recibio "+ defensa +" puntos de defensa.");
 		this.defensa+=defensa;
 	}
 	/**
