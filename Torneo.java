@@ -5,17 +5,64 @@ import java.util.Scanner;
 * Clase que contiene el método principal. Sirve de menú para las batallase inicializa las nuevas partidas.
 */
 public class Torneo{
-	Contrincante p1 = new Contrincante();
-	Contrincante p2 = new Contrincante();
+	static Contrincante p1 = new Contrincante();
+	static Contrincante p2 = new Contrincante();
 	static Torneo juego = new Torneo();
-	Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 
 	/**
 	* Método principal. Hace toda la secuencia de métodos para el flujo del juego.
 	*/
 	public static void main(String args[]){
 		juego.nuevoJuego();
+		while (true)
+		{
+			juego.turno();
+		}
+	}
+	/**
+	* Método que se encarga del flujo de los turnos.
+	*/
+	public void turno(){
+		String movimientoP1;
+		String movimientoP2;
 
+		juego.cls();
+		System.out.println("\nDatos del monstruo actual de "+p1.nombre+": ");
+		System.out.println("  Apodo  |  HP  | lvl");
+		System.out.println(p1.monstruo_actual.apodo+" | "+p1.monstruo_actual.hp+" | "+p1.monstruo_actual.nivel);
+		System.out.println("");
+		System.out.println("\nDatos del monstruo actual de "+p2.nombre+": ");
+		System.out.println("  Apodo  |  HP  | lvl");
+		System.out.println(p2.monstruo_actual.apodo+" | "+p2.monstruo_actual.hp+" | "+p2.monstruo_actual.nivel);
+
+		System.out.println("\t1) Ataque tipo 1.");
+		System.out.println("\t2) Ataque tipo 2.");
+		System.out.println("\t3) Cambiar monstruo.");
+		System.out.println("\t4) Usar pócima de vida");
+		System.out.println("\t5) Usar pócima de ataque");
+		System.out.println("\t6) Usar pócima de defensa");
+		System.out.println(p1.nombre+", elige un movimiento de la lista anterior: ");
+		movimientoP1 = sc.nextLine();
+		System.out.println(p2.nombre+", elige un movimiento de la lista anterior: ");
+		movimientoP2 = sc.nextLine();
+
+		if (p1.monstruo_actual.velocidad > p2.monstruo_actual.velocidad)
+			switch (movimientoP1) 
+			{
+				case "1":
+					p1.monstruo_actual.ataque1(p2.monstruo_actual);
+					break;
+				case "2":
+					p1.monstruo_actual.ataque2(p2.monstruo_actual);
+					break;
+				case "3":
+					p1.guardarMonstruo();
+					break;
+				case "4":
+					p1.usarPocima();
+					break;
+			}
 	}
 	/**
 	* Método que inicializa todo lo necesario para un nuevo juego.
