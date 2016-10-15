@@ -9,15 +9,21 @@ public class Torneo{
 	static Contrincante p2 = new Contrincante();
 	static Torneo juego = new Torneo();
 	static Scanner sc = new Scanner(System.in);
+	static int muertosP1 = 0, muertosP2 = 0;
 
 	/**
 	* Método principal. Hace toda la secuencia de métodos para el flujo del juego.
 	*/
 	public static void main(String args[]){
+		boolean meta = false;
 		juego.nuevoJuego();
-		while (true)
+		while (meta == false)
 		{
+			System.out.println("\nPresiona la tecla 'enter' para continuar...");
+			sc.nextLine();
 			juego.turno();
+			juego.isMuerto();
+			meta = juego.isMeta();
 		}
 	}
 	/**
@@ -35,19 +41,18 @@ public class Torneo{
 		System.out.println("\nDatos del monstruo actual de "+p2.nombre+": ");
 		System.out.println("  Apodo  |  HP  | lvl");
 		System.out.println(p2.monstruo_actual.apodo+" | "+p2.monstruo_actual.hp+" | "+p2.monstruo_actual.nivel);
-
+		System.out.println("");
 		System.out.println("\t1) Ataque tipo 1.");
 		System.out.println("\t2) Ataque tipo 2.");
 		System.out.println("\t3) Cambiar monstruo.");
-		System.out.println("\t4) Usar pócima de vida");
-		System.out.println("\t5) Usar pócima de ataque");
-		System.out.println("\t6) Usar pócima de defensa");
-		System.out.println(p1.nombre+", elige un movimiento de la lista anterior: ");
+		System.out.println("\t4) Usar pócima\n");
+		System.out.print(p1.nombre+", elige un movimiento de la lista anterior: ");
 		movimientoP1 = sc.nextLine();
-		System.out.println(p2.nombre+", elige un movimiento de la lista anterior: ");
+		System.out.print(p2.nombre+", elige un movimiento de la lista anterior: ");
 		movimientoP2 = sc.nextLine();
 
 		if (p1.monstruo_actual.velocidad > p2.monstruo_actual.velocidad)
+		{
 			switch (movimientoP1) 
 			{
 				case "1":
@@ -63,6 +68,55 @@ public class Torneo{
 					p1.usarPocima();
 					break;
 			}
+			switch (movimientoP2) 
+			{
+				case "1":
+					p2.monstruo_actual.ataque1(p1.monstruo_actual);
+					break;
+				case "2":
+					p2.monstruo_actual.ataque2(p1.monstruo_actual);
+					break;
+				case "3":
+					p2.guardarMonstruo();
+					break;
+				case "4":
+					p2.usarPocima();
+					break;
+			}
+		}
+		else if (p1.monstruo_actual.velocidad <= p2.monstruo_actual.velocidad)
+		{
+			switch (movimientoP2) 
+			{
+				case "1":
+					p2.monstruo_actual.ataque1(p1.monstruo_actual);
+					break;
+				case "2":
+					p2.monstruo_actual.ataque2(p1.monstruo_actual);
+					break;
+				case "3":
+					p2.guardarMonstruo();
+					break;
+				case "4":
+					p2.usarPocima();
+					break;
+			}
+			switch (movimientoP1) 
+			{
+				case "1":
+					p1.monstruo_actual.ataque1(p2.monstruo_actual);
+					break;
+				case "2":
+					p1.monstruo_actual.ataque2(p2.monstruo_actual);
+					break;
+				case "3":
+					p1.guardarMonstruo();
+					break;
+				case "4":
+					p1.usarPocima();
+					break;
+			}
+		}
 	}
 	/**
 	* Método que inicializa todo lo necesario para un nuevo juego.
@@ -76,6 +130,7 @@ public class Torneo{
 		System.out.print("Ingresa el nombre del jugador 2: ");
 		p2.nombre = sc.nextLine();
 		juego.elegirMonstruos();
+		juego.agregarPocimas();
 	}
 	/**
 	* Método que permite elegir los monstruos que utilizará cada jugador. Es llamado por "nuevoJuego".
@@ -96,7 +151,7 @@ public class Torneo{
 		{
 			juego.cls();
 			System.out.println("\nEstos son los monstruos disponibles: ");
-			System.out.println("# |  Nombre  | HP | Ataque | Defensa | Velocidad\n");
+			System.out.println("# |  Nombre  | HP | Ataque | Defensa | Velocidad");
 			for (int i = 0; i < monstruo.size(); i ++)
 			{
 				m = monstruo.get(i);
@@ -116,7 +171,7 @@ public class Torneo{
 
 			juego.cls();
 			System.out.println("\nEstos son los monstruos disponibles: ");
-			System.out.println("# |  Nombre  | HP | Ataque | Defensa | Velocidad\n");
+			System.out.println("# |  Nombre  | HP | Ataque | Defensa | Velocidad");
 			for (int i = 0; i < monstruo.size(); i ++)
 			{
 				m = monstruo.get(i);
@@ -136,7 +191,8 @@ public class Torneo{
 		}
 
 		juego.cls();
-		System.out.println(p1.nombre+", tienes estos monstruos: ");
+		System.out.println("\n"+p1.nombre+", tienes estos monstruos: ");
+		System.out.println("# | Apodo | HP | Ataque | Defensa | Velocidad");
 		for (int i = 0; i < (p1.monstruo).size(); i ++)
 		{
 			m = (p1.monstruo).get(i);
@@ -146,11 +202,10 @@ public class Torneo{
 		System.out.print("¿Con cuál de ellos quieres iniciar? (Ingresa su número): ");
 		eleccion = sc.nextInt();
 		p1.monstruo_actual = p1.monstruo.get(eleccion-1);
-		p1.monstruo_actual.estado = "En combate.";
-		System.out.println("¡"+p1.monstruo_actual.apodo+" entra al combate!");
 
 		juego.cls();
-		System.out.println(p2.nombre+", tienes estos monstruos: ");
+		System.out.println("\n"+p2.nombre+", tienes estos monstruos: ");
+		System.out.println("# | Apodo | HP | Ataque | Defensa | Velocidad");
 		for (int i = 0; i < (p2.monstruo).size(); i ++)
 		{
 			m = (p2.monstruo).get(i);
@@ -160,8 +215,55 @@ public class Torneo{
 		System.out.print("¿Con cuál de ellos quieres iniciar? (Ingresa su número): ");
 		eleccion = sc.nextInt();
 		p2.monstruo_actual = p2.monstruo.get(eleccion-1);
-		p2.monstruo_actual.estado = "En combate.";
-		System.out.println("¡"+p2.monstruo_actual.apodo+" entra al combate!");
+	}
+	/**
+	* Método que llena el arreglo de pócimas del usuario.
+	*/
+	public void agregarPocimas(){
+		PocimaVida pos11 = new PocimaVida();	PocimaVida pos21 = new PocimaVida();	PocimaAtaque pos31 = new PocimaAtaque();
+		PocimaAtaque pos41 = new PocimaAtaque();PocimaDefensa pos51 = new PocimaDefensa();PocimaDefensa pos61 = new PocimaDefensa();
+		PocimaVida pos12 = new PocimaVida();	PocimaVida pos22 = new PocimaVida();	PocimaAtaque pos32 = new PocimaAtaque();
+		PocimaAtaque pos42 = new PocimaAtaque();PocimaDefensa pos52 = new PocimaDefensa();PocimaDefensa pos62 = new PocimaDefensa();
+		p1.pocima.add(pos11);	p1.pocima.add(pos21);	p1.pocima.add(pos31);
+		p1.pocima.add(pos41);	p1.pocima.add(pos51);	p1.pocima.add(pos61);
+		p2.pocima.add(pos12);	p2.pocima.add(pos22);	p2.pocima.add(pos32);
+		p2.pocima.add(pos42);	p2.pocima.add(pos52);	p2.pocima.add(pos62);
+
+	}
+	/**
+	*Método que verifica si un monstruo ha muerto, lo cambia si es necesario e incrementa una variable que garantiza un estado de meta.
+	*/
+	public void isMuerto(){
+		if (p1.monstruo_actual.estado.equals("Fuera de combate"))
+		{
+			muertosP1 ++;
+			p1.guardarMonstruo();
+		}
+		if (p2.monstruo_actual.estado.equals("Fuera de combate"))
+		{
+			muertosP2 ++;
+			p2.guardarMonstruo();
+		}
+	}
+	/**
+	* Método que verifica si el estado actual del juego es una meta.
+	*/
+	public boolean isMeta(){
+		if (muertosP1 == 6) 
+		{
+			juego.cls();
+			System.out.println("\n\t\t¡LA BATALLA HA TERMINADO!");
+			System.out.println("¡"+p2.nombre+" ganó la partida! ¡Felicidades!");
+			return true;
+		}
+		else if (muertosP2 == 6) 
+		{
+			juego.cls();
+			System.out.println("\n\t\t¡LA BATALLA HA TERMINADO!");
+			System.out.println("¡"+p1.nombre+" ganó la partida! ¡Felicidades!");
+			return true;
+		}
+		return false;
 	}
 	/**
 	* Método que borra lo que hay en pantalla e imprime el banner del juego.
